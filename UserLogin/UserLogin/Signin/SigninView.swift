@@ -8,17 +8,26 @@
 import SwiftUI
 
 struct SigninView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+  @StateObject var viewModel: SigninViewModel
+
+  var body: some View {
+    VStack(alignment: .center, spacing: 50) {
+      VStack(spacing: 20) {
+        TextField(StringConstants.email, text: $viewModel.email)
+          .modifier(InputFieldModifier())
+        TextField(StringConstants.password, text: $viewModel.password)
+          .modifier(InputFieldModifier())
+      }
+      Button {
+        
+      } label: {
+        Text(StringConstants.loginTitle)
+      }
     }
+    .padding()
+  }
 }
 
 #Preview {
-    SigninView()
+  SigninView(viewModel: SigninViewModel())
 }

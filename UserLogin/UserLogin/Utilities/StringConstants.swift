@@ -13,7 +13,12 @@ struct StringConstants {
   static let email = "Email"
   static let password = "Password"
   static let confirmPassword = "Confirm Password"
-  static let dob = "DOB"
+  static let dob = "DOB :"
   static let gender = "Gender"
   static let signup = "Signup"
+}
+
+struct FailureMessages {
+  static let signinError = "Failed to singin"
+  static let signupError = "Failed to signup"
 }

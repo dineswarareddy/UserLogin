@@ -15,4 +15,14 @@ class SignupViewModel: ObservableObject {
   @Published var confirmPassword: String = ""
   @Published var dateOfBirth: Date = Date()
   @Published var gender: Gender = .female
+  
+  init () { }
+  
+  func validateInputFields() -> Bool {
+    return !fullName.isEmpty &&
+    email.isValidEmail() &&
+    password.isValidPassword() &&
+    password == confirmPassword &&
+    dateOfBirth.isDOBOlderThan18Y()
+  }
 }
