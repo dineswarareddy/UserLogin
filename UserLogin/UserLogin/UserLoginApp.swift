@@ -15,9 +15,9 @@ struct UserLoginApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationStack(path: $router.navPath) {
-        if let userEmail = KeychainSwift().get("email") {
+        if let userEmail = UserDefaults.standard.string(forKey: "email") {
           HomeView(viewModel: HomeViewModel(),
-                   userName: userEmail)
+                             userName: userEmail)
         } else {
           SignupView(viewModel: signupViewModel)
             .navigationDestination(for: Router.Destination.self) { destination in
