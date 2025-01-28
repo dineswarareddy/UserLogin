@@ -16,15 +16,19 @@ struct SigninView: View {
       VStack(spacing: 20) {
         TextField(StringConstants.email, text: $viewModel.email)
           .modifier(InputFieldModifier())
-        TextField(StringConstants.password, text: $viewModel.password)
+        SecureField(StringConstants.password, text: $viewModel.password)
           .modifier(InputFieldModifier())
       }
       Button {
-        router.navigate(to: .homePage)
+        viewModel.performSignin {
+          router.navigate(to: .homePage)
+        }
       } label: {
         Text(StringConstants.loginTitle)
       }
+      .disabled(!viewModel.validateAllInputFields() || viewModel.isAPIProcessing)
     }
+    .navigationTitle(StringConstants.loginTitle)
     .padding()
   }
 }

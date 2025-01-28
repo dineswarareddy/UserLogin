@@ -21,7 +21,12 @@ class SigninRepoImpl: SigninRepo {
   func performSignin(config: SigninConfig,
                      completionHandler: @escaping (Bool) -> Void) {
     service.performSignin(config: config) { response in
-      
+      switch response {
+      case .success(_):
+        completionHandler(true)
+      case .failure(_):
+        completionHandler(false)
+      }
     }
   }
 }
