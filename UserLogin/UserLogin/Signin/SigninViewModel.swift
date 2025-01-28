@@ -24,6 +24,7 @@ class SigninViewModel: ObservableObject {
                           password: password) { [weak self] isSuccess in
       if isSuccess {
         DispatchQueue.main.async {
+          KeychainSwift().set(self?.email ?? "", forKey: "email")
           self?.isAPIProcessing = false
           completion()
         }

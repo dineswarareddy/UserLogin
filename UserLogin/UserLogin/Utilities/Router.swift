@@ -10,9 +10,9 @@ import SwiftUI
 
 final class Router: ObservableObject {
   
-  public enum Destination: Int, Codable, Hashable {
-    case signin = 0
-    case homePage = 2
+  public enum Destination: Codable, Hashable {
+    case signin
+    case homePage(email: String)
   }
   
   @Published var navPath = NavigationPath()

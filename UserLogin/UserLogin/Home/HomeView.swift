@@ -9,10 +9,13 @@ import SwiftUI
 
 struct HomeView: View {
   @ObservedObject var viewModel: HomeViewModel
-  var userName: String
+  let userName: String
   
   var body: some View {
-    Text("Logged in as : \(userName)")
+    VStack {
+      Text("Logged in as : \(userName)")
+    }
+    .navigationTitle("Dashboard")
   }
 }
 

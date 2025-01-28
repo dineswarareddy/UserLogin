@@ -21,7 +21,7 @@ struct SigninView: View {
       }
       Button {
         viewModel.performSignin {
-          router.navigate(to: .homePage)
+          router.navigate(to: .homePage(email: viewModel.email))
         }
       } label: {
         Text(StringConstants.loginTitle)
