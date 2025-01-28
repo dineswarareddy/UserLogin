@@ -25,7 +25,7 @@ enum OperationType {
 }
 
 struct URLConstructor {
-  var baseURL = "https://dinesh.free.beeceptor.com/"
+  var baseURL = "https://learning.free.beeceptor.com/"
   let operationType: OperationType
   internal init(operationType: OperationType) {
     self.operationType = operationType

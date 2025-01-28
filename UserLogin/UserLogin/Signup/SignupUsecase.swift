@@ -29,8 +29,7 @@ class SignupUsecaseImpl: SignupUsecase {
   
   func performSignup(usecaseModel: SignupUsecaseConfigModel,
                      completion: @escaping (Bool) -> Void) {
-    repo.performSignup(config: SignupConfig.getFromUsecaseConfig(config: usecaseModel)) { response in
-      
+    repo.performSignup(config: SignupConfig.getFromUsecaseConfig(config: usecaseModel),
+                       completionHandler: completion)
     }
-  }
 }

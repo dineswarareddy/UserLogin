@@ -43,13 +43,15 @@ struct SignupView: View {
         }
         .padding()
         Button {
-          print("Button action")
-          router.navigate(to: .signin)
+          viewModel.initiateUserSignup(completion: {
+            router.navigate(to: .signin)
+          })
         } label: {
           Text(StringConstants.signup)
-        }.disabled(!viewModel.validateInputFields())
+        }.disabled(!viewModel.validateInputFields() || viewModel.isApiProcessing)
       }
     }
+    .navigationTitle(StringConstants.signup)
   }
 }
 

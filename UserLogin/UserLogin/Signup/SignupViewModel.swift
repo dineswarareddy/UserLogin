@@ -17,6 +17,8 @@ class SignupViewModel: ObservableObject {
   @Published var dateOfBirth: Date = Date()
   @Published var gender: Gender = .female
   @Published var path = NavigationPath()
+  @EnvironmentObject var router: Router
+  @Published var isApiProcessing: Bool = false
   
   let usecase: SignupUsecase
   init (usecase: SignupUsecase = SignupUsecaseImpl()) {
@@ -39,14 +41,22 @@ class SignupViewModel: ObservableObject {
     dateOfBirth.isDOBOlderThan18Y()
   }
   
-  func initiateUserSignup() {
+  func initiateUserSignup(completion: @escaping () -> ()) {
+    isApiProcessing = true
     let config = SignupUsecaseConfigModel(userName: fullName,
                                           password: password,
                                           email: email,
                                           dob: dateOfBirth,
                                           gender: gender)
-    usecase.performSignup(usecaseModel: config) { isSuccess in
-      print("is login success: \(isSuccess)")
+    usecase.performSignup(usecaseModel: config) { [weak self] isSuccess in
+      DispatchQueue.main.async {
+        print("is login success: \(isSuccess)")
+        self?.isApiProcessing = false
+        if isSuccess {
+          completion()
+//          self?.router.navigate(to: .signin)
+        }
+      }
     }
   }
 }
