@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SigninView: View {
   @StateObject var viewModel: SigninViewModel
-
+  @EnvironmentObject var router: Router
+  
   var body: some View {
     VStack(alignment: .center, spacing: 50) {
       VStack(spacing: 20) {
@@ -19,7 +20,7 @@ struct SigninView: View {
           .modifier(InputFieldModifier())
       }
       Button {
-        
+        router.navigate(to: .homePage)
       } label: {
         Text(StringConstants.loginTitle)
       }

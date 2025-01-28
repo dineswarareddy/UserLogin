@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SignupView: View {
   @StateObject var viewModel: SignupViewModel
+  @State var navigatToSignupView: Bool = false
+  @State private var navPath = NavigationPath()
+  @EnvironmentObject var router: Router
   
   var body: some View {
     ScrollView {
@@ -41,6 +44,7 @@ struct SignupView: View {
         .padding()
         Button {
           print("Button action")
+          router.navigate(to: .signin)
         } label: {
           Text(StringConstants.signup)
         }.disabled(!viewModel.validateInputFields())
