@@ -15,7 +15,8 @@ struct UserLoginApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationStack(path: $router.navPath) {
-        if let userEmail = UserDefaults.standard.string(forKey: "email") {
+        if let userEmail = UserDefaults.standard.string(forKey: "email"),
+            router.navPath.isEmpty {
           HomeView(viewModel: HomeViewModel(),
                              userName: userEmail)
         } else {
