@@ -7,22 +7,6 @@
 
 import Foundation
 
-struct SigninConfig: Codable {
-  let email: String
-  let password: String
-  
-  func createHttpRequestBody() -> Data? {
-    let encoder = JSONEncoder()
-    do {
-      let jsonData = try encoder.encode(self)
-      return jsonData
-    } catch {
-      print("Error encoding FilterCriteria: \(error)")
-      return nil
-    }
-  }
-}
-
 protocol SigninService {
   func performSignin(config: SigninConfig,
                      completion: @escaping (Result<Data, Error>) -> Void)

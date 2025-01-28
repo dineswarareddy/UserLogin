@@ -8,11 +8,20 @@
 import Foundation
 
 protocol SigninRepo {
-  func performSignin(completionHandler: @escaping (Bool) -> Void)
+  func performSignin(config: SigninConfig,
+                     completionHandler: @escaping (Bool) -> Void)
 }
 
 class SigninRepoImpl: SigninRepo {
-  func performSignin(completionHandler: @escaping (Bool) -> Void) {
-    
+  let service: SigninService
+  
+  init(service: SigninService = SigninServiceImpl()) {
+    self.service = service
+  }
+  func performSignin(config: SigninConfig,
+                     completionHandler: @escaping (Bool) -> Void) {
+    service.performSignin(config: config) { response in
+      
+    }
   }
 }

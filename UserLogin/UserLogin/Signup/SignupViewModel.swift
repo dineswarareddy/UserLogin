@@ -18,7 +18,10 @@ class SignupViewModel: ObservableObject {
   @Published var gender: Gender = .female
   @Published var path = NavigationPath()
   
-  init () { }
+  let usecase: SignupUsecase
+  init (usecase: SignupUsecase = SignupUsecaseImpl()) {
+    self.usecase = usecase
+  }
   
   func push(_ routPathView: RoutePath) {
          path.append(routPathView)
@@ -34,6 +37,17 @@ class SignupViewModel: ObservableObject {
     password.isValidPassword() &&
     password == confirmPassword &&
     dateOfBirth.isDOBOlderThan18Y()
+  }
+  
+  func initiateUserSignup() {
+    let config = SignupUsecaseConfigModel(userName: fullName,
+                                          password: password,
+                                          email: email,
+                                          dob: dateOfBirth,
+                                          gender: gender)
+    usecase.performSignup(usecaseModel: config) { isSuccess in
+      print("is login success: \(isSuccess)")
+    }
   }
 }
 

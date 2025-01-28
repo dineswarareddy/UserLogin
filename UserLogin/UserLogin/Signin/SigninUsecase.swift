@@ -22,6 +22,9 @@ class SigninUsecaseImpl: SigninUsecase {
   func performSignin(email: String,
                      password: String,
                      completionHandler: @escaping (Bool) -> Void) {
-    return repo.performSignin(completionHandler: completionHandler)
+    let config = SigninConfig(email: email,
+                              password: password)
+    return repo.performSignin(config: config,
+                              completionHandler: completionHandler)
   }
 }

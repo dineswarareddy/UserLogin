@@ -17,4 +17,10 @@ extension Date {
     let components = calendar.dateComponents([.year], from: startDate, to: endDate)
     return components.year!
   }
+  
+  func getStringFormatdd_mm_yyyy() -> String {
+    let outputFormat = DateFormatter()
+    outputFormat.dateFormat = "dd-MM-yyyy"
+    return outputFormat.string(from: self)
+  }
 }

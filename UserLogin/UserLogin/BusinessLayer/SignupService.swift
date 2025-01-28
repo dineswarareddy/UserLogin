@@ -7,29 +7,25 @@
 
 import Foundation
 
-struct SignupConfig: Codable {
-  let fullName: String
-  let email: String
-  let password: String
-  let dob: String
-  let gender: String
-  
-  func createHttpRequestBody() -> Data? {
-    let encoder = JSONEncoder()
-    do {
-      let jsonData = try encoder.encode(self)
-      return jsonData
-    } catch {
-      print("Error encoding FilterCriteria: \(error)")
-      return nil
-    }
-  }
-}
-
 protocol SignupService {
-  
+  func performSignup(config: SignupConfig,
+                     completion: @escaping (Result<Data, any Error>) -> Void)
 }
 
 class SignupServiceImpl: SignupService {
-  
+  func performSignup(config: SignupConfig,
+                     completion: @escaping (Result<Data, any Error>) -> Void) {
+    let requestURL = URLConstructor(operationType: .signup).getRequestURL()
+    let dataToPush = config.createHttpRequestBody()
+    let request = NetworkRequest(endpointURL: requestURL,
+                                 httpMethod: OperationType.signup.httpMethod,
+                                 data: dataToPush)
+    RestClient().send(request: request) { response, error in
+      if let responseData = response?.data {
+        completion(.success(responseData))
+        return
+      }
+      completion(.failure(SignupError.performSignupError))
+    }
+  }
 }
